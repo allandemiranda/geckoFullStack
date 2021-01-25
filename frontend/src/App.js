@@ -6,16 +6,34 @@ import logo from './logo.png';
 import moment from 'moment';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 
+import axios from './utils/axios';
+import { useEffect, useState } from 'react';
+
 function App() {
   const localizer = momentLocalizer(moment)
 
-  const myEventsList = [
-    {
-      title: "Test",
-      start: "2020-10-28",
-      end: "2020-10-29"
+  const [myEventsList, setMyEventsList] = useState([])
+
+  useEffect(()=>{
+    let mounted = true;
+
+    const fetchMyEventsList = () => {
+      axios.get('/inspections/?format=json').then(response => {
+        if (mounted) {          
+          setMyEventsList(response.data)
+        }
+      }).catch((err)=>{
+        console.log(err)
+      });
     }
-  ];
+
+    fetchMyEventsList();
+
+    return () => {
+      mounted = false;
+    };
+    
+  },[]);
 
   return (
     <div className="App">
@@ -28,8 +46,8 @@ function App() {
         <Calendar
           localizer={localizer}
           events={myEventsList}
-          startAccessor="start"
-          endAccessor="end"
+          startAccessor="start_date"
+          endAccessor="end_date"
           style={{ height: 500 }}
         />
       </div>

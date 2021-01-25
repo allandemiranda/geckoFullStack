@@ -21,6 +21,7 @@ from scheduler import views
 
 router = routers.DefaultRouter()
 router.register(r"inspections", views.InspectionViewSet)
+router.register(r"maintenance", views.MaintenanceViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

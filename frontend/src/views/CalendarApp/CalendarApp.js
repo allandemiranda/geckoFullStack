@@ -56,7 +56,7 @@ const CalendarApp = () => {
   const [newAlert, setNewAlert] = useState(false);  
   const [alertBanner, setAlertBanner] = useState(false);
   const [event, setEvent] = useState({});
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);    

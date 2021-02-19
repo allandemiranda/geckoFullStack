@@ -1,0 +1,9 @@
+{
+    "prettier.eslintIntegration": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "[javascript]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true
+  }

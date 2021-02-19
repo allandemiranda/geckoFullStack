@@ -1,40 +1,25 @@
-import './App.css';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import React from 'react';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { renderRoutes } from 'react-router-config';
+import { Provider as StoreProvider } from 'react-redux';
+import { configureStore } from './store';
+import { ThemeProvider } from '@material-ui/styles';
 
-import logo from './logo.png';
+import theme from './theme';
+import routes from './routes';
 
-import moment from 'moment';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+const history = createBrowserHistory();
+const store = configureStore();
 
-function App() {
-  const localizer = momentLocalizer(moment)
-
-  const myEventsList = [
-    {
-      title: "Test",
-      start: "2020-10-28",
-      end: "2020-10-29"
-    }
-  ];
-
+const App = () => {
   return (
-    <div className="App">
-      <header>
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Gecko Portal</h1>
-      </header>
-      <div>
-        <h2>Calendar</h2>
-        <Calendar
-          localizer={localizer}
-          events={myEventsList}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500 }}
-        />
-      </div>
-    </div>
+    <StoreProvider store={store}>
+      <ThemeProvider theme={theme}>
+        <Router history={history}>{renderRoutes(routes)}</Router>
+      </ThemeProvider>
+    </StoreProvider>
   );
-}
+};
 
 export default App;
